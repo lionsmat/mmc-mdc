@@ -1,51 +1,37 @@
-let numero1
-let numero2
+console.log("Digite dois números, começando pelo primeiro:");
 
-process.stdin.on("data", function(data) {
-    let input = +data.toString().trim()
+let numeros = [];
 
-    if(!numero1) {
+process.stdin.on("data", function (data) {
+  let numero = Number(data.toString().trim());
 
-        numero1 = input
+  if (isNaN(numero)) {
+    console.log("Por favor, digite um número válido.");
+  } else {
+    numeros.push(numero);
+
+    if (numeros.length === 2) {
+      let a = numeros[0];
+      let b = numeros[1];
+      let originalB = b;
+
+      // Calcular MDC
+      while (b !== 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+      }
+      const mdc = a;
+
+      // Calcular MMC
+      const mmc = Math.abs(numeros[0] * numeros[1]) / mdc;
+
+      console.log(`MDC: ${mdc}`);
+      console.log(`MMC: ${mmc}`);
+
+      process.exit();
     } else {
-        numero2 = input
-
-        let i
-        let maior
-        let menor
-
-        if(numero1 > numero2) {
-            maior = numero1
-            menor = numero2
-        } else {
-            maior = numero2
-            menor = numero1
-        }
-
-        i = maior
-        for (i; i <= numero1 * numero2; i += maior) {
-            if(i % numero1 == 0 && i % numero2 == 0) {
-                console.log("MMC: " + i)
-                break
-            }
-        }
-
-        i = menor
-
-        let j = 1
-        if (i % 2 == 0) {
-            j = 2
-        }
-
-        for(i; i > 0; i-=j) {
-            if(numero1 % i == 0 && numero2 % i ==0) {
-                console.log("MDC: " + i)
-                break;
-            }
-        }
-        
-        process.exit()
-
-
+      console.log("Digite o segundo número:");
     }
-})
+  }
+});
