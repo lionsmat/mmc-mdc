@@ -12,14 +12,17 @@ process.stdin.on("data", function(data) {
 
         let i
         let maior
+        let menor
+
         if(numero1 > numero2) {
-            i = numero1
             maior = numero1
+            menor = numero2
         } else {
-            i = numero2
             maior = numero2
+            menor = numero1
         }
-        
+
+        i = maior
         for (i; i <= numero1 * numero2; i += maior) {
             if(i % numero1 == 0 && i % numero2 == 0) {
                 console.log("MMC: " + i)
@@ -27,6 +30,20 @@ process.stdin.on("data", function(data) {
             }
         }
 
+        i = menor
+
+        let j = 1
+        if (i % 2 == 0) {
+            j = 2
+        }
+
+        for(i; i > 0; i-=j) {
+            if(numero1 % i == 0 && numero2 % i ==0) {
+                console.log("MDC: " + i)
+                break;
+            }
+        }
+        
         process.exit()
 
 
